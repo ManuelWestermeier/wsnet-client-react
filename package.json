@@ -1,5 +1,24 @@
 {
+  "name": "wsnet-client-react",
+  "version": "1.0.0",
+  "description": "A fast realtime websocket framework for react",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "websocket",
+    "libary",
+    "realtime",
+    "easy",
+    "client",
+    "react"
+  ],
+  "type": "module",
+  "author": "Manuel Westermeier",
+  "license": "ISC",
   "dependencies": {
-    "wsnet-client": "latest"
+    "wsnet-client": "latest",
+    "react": "latest"
   }
 }
