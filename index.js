@@ -10,15 +10,15 @@ export function useClient(url = "", params = {}, wait = true) {
             client.close()
         }
 
-        const client = new Client(url, params)
+        const new_client = new Client(url, params)
 
         const clientState = wait ?
-            await waitForClient(client) :
+            await waitForClient(new_client) :
             true
 
         if (clientState) {
             setState("sucess")
-            setClient(client)
+            setClient(new_client)
         }
         else {
             setState("failed")
