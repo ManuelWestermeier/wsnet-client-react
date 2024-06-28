@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import Client, { waitForClient } from "wsnet-client"
 
-export function useClient(getNewClient = () => new Client(), wait = true) {
+type Status = "loading" | "failed" | "sucess"
+
+export function useClient(getNewClient: () => Client, wait = true): [null | Client, Status, () => Promise<void>] {
     const [client, setClient] = useState(null)
-    const [state, setState] = useState("loading")
+    const [state, setState] = useState<Status>("loading")
 
     async function createClient() {
         if (client) {

@@ -1,6 +1,6 @@
 {
   "name": "wsnet-client-react",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A fast realtime websocket framework for react",
   "main": "index.js",
   "scripts": {
@@ -20,5 +20,6 @@
   "dependencies": {
     "wsnet-client": "latest",
     "react": "latest"
-  }
+  },
+  "types": "index.ts"
 }
