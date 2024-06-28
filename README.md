@@ -41,6 +41,8 @@ export default function App() {
 
 [backend code](https://github.com/ManuelWestermeier/wsnet-server-react-test)
 
+[preview (can load on first time over 30s)](https://manuelwestermeier.github.io/wsnet-client-react-test)
+
 ## Server + Client
 
 [wsent-server](https://www.npmjs.com/package/wsnet-server)
