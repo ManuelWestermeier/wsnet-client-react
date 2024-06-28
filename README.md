@@ -2,19 +2,18 @@
 
 ## Basic Usage
 
-```jsx
+```tsx
 import Client from "wsnet-client"
 import { useClient } from "wsnet-client-react"
 
-function App() {
+export function App() {
     const [counter, setCounter] = useState(0)
     
     //1. The client or null
     //2. the state: "loading", "sucess" or "failed"
-    const [client, state, reCreateClient] = useClient(
-/*the argument 1 is the function to get the client (it have tu return a new client)*/
+    const [client, state, reCreateClient] = useClient(/*the argument 1 is the function to get the client (it have tu return a new client)*/
         () => {
-        const client = new Client("", { user: "admin", password: "1234" })
+        const client = new Client("wss://wsnet-server-react-test.onrender.com", { user: "admin", password: "1234" })
         //any client "on" logic (all onSay and onGet handeler)
         client.onSay("set-counter", data => setCounter(data))
 
@@ -37,6 +36,8 @@ function App() {
     </>
 }
 ```
+
+[backend code](https://github.com/ManuelWestermeier/wsnet-server-react-test)
 
 ## Server + Client
 

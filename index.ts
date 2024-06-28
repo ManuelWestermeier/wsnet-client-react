@@ -4,7 +4,7 @@ import Client, { waitForClient } from "wsnet-client"
 type Status = "loading" | "failed" | "sucess"
 
 export function useClient(getNewClient: () => Client, wait = true): [null | Client, Status, () => Promise<void>] {
-    const [client, setClient] = useState(null)
+    const [client, setClient] = useState<null | Client>(null)
     const [state, setState] = useState<Status>("loading")
 
     async function createClient() {
