@@ -3,11 +3,15 @@ import Client, { waitForClient } from "wsnet-client"
 
 type Status = "loading" | "failed" | "sucess"
 
-export function useClient(getNewClient: () => Client, wait = true): [null | Client, Status, () => Promise<void>] {
-    const [client, setClient] = useState<null | Client>(null)
-    const [state, setState] = useState<Status>("loading")
+export function useClient(getNewClient: () => Client, wait = true, _setIsClosed = true): [null | Client, Status, () => Promise<void>, boolean] {
+    const [client, setClient] = useState(null as null | Client)
+    const [state, setState] = useState("loading" as Status)
+    const [isClosed, setIsClosed] = useState(false as boolean)
 
     async function createClient() {
+        setState("loading")
+        setIsClosed(false)
+
         if (client) {
             client.close()
         }
@@ -24,7 +28,11 @@ export function useClient(getNewClient: () => Client, wait = true): [null | Clie
         }
         else {
             setState("failed")
+            setIsClosed(true)
         }
+
+        if (_setIsClosed)
+            new_client.onclose = () => setIsClosed(true)
     }
 
     useEffect(() => {
@@ -35,5 +43,5 @@ export function useClient(getNewClient: () => Client, wait = true): [null | Clie
         }
     }, [])
 
-    return [client, state, createClient]
+    return [client, state, createClient, isClosed]
 }
