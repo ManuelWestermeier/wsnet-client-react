@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import Client, { waitForClient } from "wsnet-client"
 
-type Status = "loading" | "failed" | "sucess"
+export type Status = "loading" | "failed" | "sucess"
 
-export function useClient(getNewClient: () => Client, wait = true, _setIsClosed = true): [null | Client, Status, () => Promise<void>, boolean] {
+export function useClient(getNewClient: () => Client, wait = true, setOnCloseHandeler = true): [null | Client, Status, () => Promise<void>, boolean] {
     const [client, setClient] = useState(null as null | Client)
     const [state, setState] = useState("loading" as Status)
     const [isClosed, setIsClosed] = useState(false as boolean)
@@ -31,7 +31,7 @@ export function useClient(getNewClient: () => Client, wait = true, _setIsClosed 
             setIsClosed(true)
         }
 
-        if (_setIsClosed)
+        if (setOnCloseHandeler)
             new_client.onclose = () => setIsClosed(true)
     }
 

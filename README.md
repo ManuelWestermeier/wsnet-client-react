@@ -12,7 +12,9 @@ export default function App() {
 
   //1. The client or null
   //2. the state: "loading", "sucess" or "failed"
-  const [client, state, reCreateClient] = useClient(
+  //3. Reacreate the client
+  //4. If the conection is closed (boolean)
+  const [client, state, reCreateClient, isClosed] = useClient(
     /*the argument 1 is the function to get the client (it have tu return a new client)*/
     () => {
       const client = new Client("https://wsnet-server-react-test.onrender.com", { user: "admin", password: "1234" })
@@ -20,9 +22,14 @@ export default function App() {
       client.onSay("set-counter", data => setCounter(data))
 
       return client
-    }, /*argument 2 is wait for client to open (boolean) (default is to wait for client to open = true)*/ true)
+    }, /*argument 2 is wait for client to open (boolean) (default is to wait for client to open = true)*/ true,
+      /*argument 3 is if you want to let the onclose handler overwrite on the client (default=true)
+        if you don't want to set the the onclose handler to the client write false (the 4th output (isCLosed)) 
+        don't work anymore and is set to false every time) 
+      */, true
+    )
 
-  if (state == "failed" || client?.getState() == 3)
+  if (state == "failed" || isClosed)
     return <button onClick={() => reCreateClient()}>
       Reconect
     </button>
