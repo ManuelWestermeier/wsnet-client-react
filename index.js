@@ -30,7 +30,10 @@ export function useClient(getNewClient = () => new Client(), wait = true, setOnC
         }
 
         if (setOnCloseHandeler)
-            new_client.onclose = () => setIsClosed(true)
+            new_client.onclose = () => {
+                setIsClosed(true)
+                setState("closed")
+            }
     }
 
     useEffect(() => {

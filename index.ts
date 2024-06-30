@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Client, { waitForClient } from "wsnet-client"
 
-export type Status = "loading" | "failed" | "sucess"
+export type Status = "loading" | "failed" | "sucess" | "closed"
 
 export function useClient(getNewClient: () => Client, wait = true, setOnCloseHandeler = true): [null | Client, Status, () => Promise<void>, boolean] {
     const [client, setClient] = useState(null as null | Client)
@@ -34,7 +34,7 @@ export function useClient(getNewClient: () => Client, wait = true, setOnCloseHan
         if (setOnCloseHandeler)
             new_client.onclose = () => {
                 setIsClosed(true)
-                setState("failed")
+                setState("closed")
             }
     }
 
